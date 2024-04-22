@@ -4,7 +4,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: antrea-agent
-  namespace: authentik
+  namespace: kube-system
   labels:
     app: antrea
 ---
@@ -13,7 +13,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: antctl
-  namespace: authentik
+  namespace: kube-system
   labels:
     app: antrea
 ---
@@ -22,7 +22,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: antrea-controller
-  namespace: authentik
+  namespace: kube-system
   labels:
     app: antrea
 ---
@@ -31,7 +31,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: antrea-agent-service-account-token
-  namespace: authentik
+  namespace: kube-system
   annotations:
     kubernetes.io/service-account.name: antrea-agent
 type: kubernetes.io/service-account-token
@@ -41,7 +41,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: antctl-service-account-token
-  namespace: authentik
+  namespace: kube-system
   annotations:
     kubernetes.io/service-account.name: antctl
 type: kubernetes.io/service-account-token
@@ -51,7 +51,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: antrea-config
-  namespace: authentik
+  namespace: kube-system
   labels:
     app: antrea
 data:
@@ -922,7 +922,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: antrea-agent
-    namespace: authentik
+    namespace: kube-system
 ---
 # Source: antrea/templates/antctl/clusterrolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -938,7 +938,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: antctl
-    namespace: authentik
+    namespace: kube-system
 ---
 # Source: antrea/templates/controller/clusterrolebinding.yaml
 kind: ClusterRoleBinding
@@ -954,14 +954,14 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: antrea-controller
-    namespace: authentik
+    namespace: kube-system
 ---
 # Source: antrea/templates/controller/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
   name: antrea
-  namespace: authentik
+  namespace: kube-system
   labels:
     app: antrea
 spec:
@@ -978,7 +978,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: antrea-agent
-  namespace: authentik
+  namespace: kube-system
   labels:
     app: antrea
     component: antrea-agent
@@ -1181,7 +1181,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: antrea-controller
-  namespace: authentik
+  namespace: kube-system
   labels:
     app: antrea
     component: antrea-controller
@@ -1312,7 +1312,7 @@ spec:
   versionPriority: 100
   service:
     name: antrea
-    namespace: authentik
+    namespace: kube-system
 ---
 # Source: antrea/templates/controller/apiservices.yaml
 apiVersion: apiregistration.k8s.io/v1
@@ -1329,7 +1329,7 @@ spec:
   versionPriority: 100
   service:
     name: antrea
-    namespace: authentik
+    namespace: kube-system
 ---
 # Source: antrea/templates/controller/apiservices.yaml
 apiVersion: apiregistration.k8s.io/v1
@@ -1346,7 +1346,7 @@ spec:
   versionPriority: 100
   service:
     name: antrea
-    namespace: authentik
+    namespace: kube-system
 ---
 # Source: antrea/templates/webhooks/mutating/crdmutator.yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -1361,7 +1361,7 @@ webhooks:
     clientConfig:
       service:
         name: "antrea"
-        namespace: authentik
+        namespace: kube-system
         path: "/mutate/acnp"
     rules:
       - operations: ["CREATE", "UPDATE"]
@@ -1376,7 +1376,7 @@ webhooks:
     clientConfig:
       service:
         name: "antrea"
-        namespace: authentik
+        namespace: kube-system
         path: "/mutate/annp"
     rules:
       - operations: ["CREATE", "UPDATE"]
@@ -1401,7 +1401,7 @@ webhooks:
     clientConfig:
       service:
         name: "antrea"
-        namespace: authentik
+        namespace: kube-system
         path: "/validate/tier"
     rules:
       - operations: ["CREATE", "UPDATE", "DELETE"]
@@ -1416,7 +1416,7 @@ webhooks:
     clientConfig:
       service:
         name: "antrea"
-        namespace: authentik
+        namespace: kube-system
         path: "/validate/acnp"
     rules:
       - operations: ["CREATE", "UPDATE"]
@@ -1431,7 +1431,7 @@ webhooks:
     clientConfig:
       service:
         name: "antrea"
-        namespace: authentik
+        namespace: kube-system
         path: "/validate/annp"
     rules:
       - operations: ["CREATE", "UPDATE"]
@@ -1446,7 +1446,7 @@ webhooks:
     clientConfig:
       service:
         name: "antrea"
-        namespace: authentik
+        namespace: kube-system
         path: "/validate/anp"
     rules:
       - operations: ["CREATE", "UPDATE"]
@@ -1460,7 +1460,7 @@ webhooks:
     clientConfig:
       service:
         name: "antrea"
-        namespace: authentik
+        namespace: kube-system
         path: "/validate/banp"
     rules:
       - operations: ["CREATE", "UPDATE"]
@@ -1474,7 +1474,7 @@ webhooks:
     clientConfig:
       service:
         name: "antrea"
-        namespace: authentik
+        namespace: kube-system
         path: "/validate/clustergroup"
     rules:
       - operations: ["CREATE", "UPDATE"]
@@ -1504,7 +1504,7 @@ webhooks:
     clientConfig:
       service:
         name: "antrea"
-        namespace: authentik
+        namespace: kube-system
         path: "/validate/externalippool"
     rules:
       - operations: ["CREATE", "UPDATE"]
@@ -1519,7 +1519,7 @@ webhooks:
     clientConfig:
       service:
         name: "antrea"
-        namespace: authentik
+        namespace: kube-system
         path: "/validate/egress"
     rules:
       - operations: ["CREATE", "UPDATE"]
@@ -1534,7 +1534,7 @@ webhooks:
     clientConfig:
       service:
         name: "antrea"
-        namespace: authentik
+        namespace: kube-system
         path: "/validate/ippool"
     rules:
       - operations: ["CREATE", "UPDATE", "DELETE"]
@@ -1549,7 +1549,7 @@ webhooks:
     clientConfig:
       service:
         name: "antrea"
-        namespace: authentik
+        namespace: kube-system
         path: "/validate/supportbundlecollection"
     rules:
       - operations: ["UPDATE", "DELETE"]
@@ -1564,7 +1564,7 @@ webhooks:
     clientConfig:
       service:
         name: "antrea"
-        namespace: authentik
+        namespace: kube-system
         path: "/validate/traceflow"
     rules:
       - operations: ["CREATE", "UPDATE"]
