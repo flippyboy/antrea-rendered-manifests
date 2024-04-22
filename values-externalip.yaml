@@ -1,0 +1,7 @@
+agent:
+  dontLoadKernelModules: true
+  installCNI:
+    securityContext:
+      capabilities: []
+featureGates:
+  ServiceExternalIP: true
